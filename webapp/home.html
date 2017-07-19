@@ -3,83 +3,248 @@
 		<div class="list-group text-center">
 			<!-- cục giới thiệu -->
 			<div class="list-group-item list-group-item-home">
-				<h1>Socket Client Webapp <small>1.0</small>
+				<h1>ĐỒ ÁN ĐIỀU KHIỂN THIẾT BỊ QUA MẠNG KHÔNG DÂY - WebApp<small>1.0</small>
 				</h1>
 			</div>
 			
-			<!-- Cục cảm biến mưa -->
-			<div class="list-group-item list-group-item-home">
-				<div>
-					<i class="fa fa-gamepad feature-icon text-primary"></i>
-				</div>
-				<div>
-					<h3 class="home-heading">Cảm biến mưa</h3>
-					Kết quả: {{CamBienMua}}
-				</div>
-			</div>
-			
-			<!-- Cục cập nhập giá trị cảm biến -->
-			<div class="list-group-item list-group-item-home">
-				<div>
-					<i class="fa fa-tachometer feature-icon  text-primary"></i>
-				</div>
-				<div>
-					<h3 class="home-heading">Cập nhập cảm biến</h3>
-					<button class="button" ng-click="updateSensor()">
-						Nhấn vô dể cập nhập giá trị cảm biến
-					</button>
-				</div>
-			</div>
-			
-			<!-- Cục cập nhập giá trị servo -->
-			<div class="list-group-item list-group-item-home">
-				<div>
-					<i class="fa fa-tachometer feature-icon  text-primary"></i>
-				</div>
-				<div>
-					<h3 class="home-heading">Cập nhập giá trị servo</h3>
-					<input type="text" class="input text" ng-model="servoPosition" ng-change="updateServo(servoPosition)" />
-				</div>
-			</div>
-			
-			<!-- Cục thay đổi chữ trên LCD-->
-			<div class="list-group-item list-group-item-home">
-				<div>
-					<i class="fa fa-tachometer feature-icon  text-primary"></i>
-				</div>
-				<div>
-					<h3 class="home-heading">Cập nhập giá trị LCD </h3>
-					<input type="text" class="input text" ng-model="lcd[0]" ng-change="updateLCD()" />
-					<input type="text" class="input text" ng-model="lcd[1]" ng-change="updateLCD()" />
-				</div>
-			</div>
 			
 			
-			<!-- Cục thay đổi trạng thái LED -->
+			
+			
 			<div class="list-group-item list-group-item-home">
-				<div>
-					<i class="fa fa-tachometer feature-icon  text-primary"></i>
+				<div ui-state="activeTab" default="4">
+				  <ul class="nav nav-tabs">
+					<li ui-class="{'active': activeTab == 1} ">
+					  <a ui-set="{'activeTab': 1}">Các cảm biến</a>
+					</li>
+					<li ui-class="{'active': activeTab == 2}">
+					  <a ui-set="{'activeTab': 2}">Điều khiển thiết bị</a>
+					</li>
+					<li ui-class="{'active': activeTab == 3}">
+					  <a ui-set="{'activeTab': 3}">Video</a>
+					</li>
+					<li ui-class="{'active': activeTab == 4}">
+					  <a ui-set="{'activeTab': 4}">DEMO</a>
+					</li>
+				  </ul>
+				
+					<!--TAB 1 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				  <div ui-if="activeTab == 1">
+					<div class="list-group-item list-group-item-home">
+					<div>
+						<i class="fa fa-gamepad feature-icon text-primary"></i>
+					</div>
+					<div>
+						<h3 class="home-heading">Cảm biến mưa</h3>
+						Kết quả: {{CamBienMua}}
+					</div>
+					
+					<!-- Cục cập nhập giá trị cảm biến -->
+					
+						
+						<div>
+							<h3 class="home-heading">Cập nhập cảm biến</h3>
+							<button class="button" ng-click="updateSensor()">
+								Nhấn vô dể cập nhập giá trị cảm biến
+							</button>
+						</div>
+					
+					
+					<!--cập nhật giá trị cảm biến nhiệt độ và độ ẩm-->
+					
+					<div>
+						<h3 class="home-heading">Cảm biến nhiệt độ và độ ẩm</h3>
+						Kết quả: {{CamBienNhietDo}}
+					</div>
+					
+					<!--cập nhật giá trị cảm biến không khí-->
+					
+					<div>
+						<h3 class="home-heading">Cảm biến không khí</h3>
+						Kết quả: {{CamBienKhongKhi}}
+					</div>
+					
+					<!--cập nhật giá trị cảm biến không khí-->
+					
+					<div>
+						<h3 class="home-heading">Cảm biến không khí</h3>
+						Kết quả: {{CamBienKhongKhi}}
+					</div>
+					
+					<!--cập nhật giá trị cảm biến chuyển động-->
+					
+					<div>
+						<h3 class="home-heading">Cảm biến chuyển động</h3>
+						Kết quả: {{CamBienChuyenDong}}
+					</div>
+					
+					<!--cập nhật giá trị cảm biến hồng ngoại-->
+					
+					<div>
+						<h3 class="home-heading">Cảm biến hồng ngoại</h3>
+						Kết quả: {{CamBienHongNgoai}}
+					</div>
+					
+					<!--cập nhật giá trị cảm biến chuyển động-->
+					
+					<div>
+						<h3 class="home-heading">Cảm biến Laser</h3>
+						Kết quả: {{CamBienLaser}}
+					</div>
+					
+					<!-- Cục cập nhập giá trị nút nhấn! ng -->
+					
+						
+						<div>
+							<h3 class="home-heading">TRẠNG THÁI mấy cái NÚT NHẤN</h3>
+							<div ng-repeat="button_value in buttons  track by $index">
+								Nút nhấn {{$index}} đang {{button_value ? "THẢ" : "GIỮ"}}
+							</div>
+						</div>
+					</div>
+					
+					</div>
+				
+					
+					<!--TAB 2 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				  <div ui-if="activeTab == 2">
+						<div class="list-group-item list-group-item-scroll text-left"> 
+						<div ng-repeat="switchs_value in switchs_status  track by $index">
+							<span ui-switch  ng-model="" ng-click="clicks()" ng-change="changeSwitch1()" /ui-switch></span>
+							Trạng thái đèn vườn đang {{switchs_value ? "Bật" : "Tắt"}}
+							<span ui-switch  ng-model=""  ng-change="change_Switch2()" /ui-switch></span>
+							Trạng thái của hồ
+							<span ui-switch  ng-model=""  ng-change="change_Switch3()" /ui-switch></span>
+							Trạng thái đèn phòng khách
+							<span ui-switch  ng-model=""  ng-change="change_Switch4()" /ui-switch></span>
+							Trạng thái đèn phòng bếp
+							<span ui-switch  ng-model=""  ng-change="change_Switch5()" /ui-switch></span>
+							Trạng thái đèn phòng ngủ
+							<span ui-switch  ng-model=""  ng-change="change_Switch6()" /ui-switch></span>
+							Trạng thái đèn nhà vệ sinh
+							
+							
+						</div>
+						
+						
+						
+						</div>
+						<!-- Cục thay đổi chữ trên LCD-->
+						<div class="list-group-item list-group-item-home">
+							
+							<div>
+								<h3 class="home-heading">Cập nhập giá trị LCD </h3>
+								<input type="text" class="input text" ng-model="lcd[0]" placeholder="Nhập tối đa 16 ký tự"/>
+								<input type="text" class="input text" ng-model="lcd[1]" placeholder="Nhập tối đa 16 ký tự"/>
+							</div>
+							<div>
+								<button class="button" ng-click="updateLCD()">
+									OK
+								</button>
+							</div>
+						</div>
+						
+						<!-- Cục cập nhập giá trị servo -->
+						<div class="list-group-item list-group-item-home">
+							<div>
+								<i class="fa fa-tachometer feature-icon  text-primary"></i>
+							</div>
+							<div>
+								<h3 class="home-heading">Cập nhập giá trị servo (cửa)</h3>
+								<input type="text" class="input text" ng-model="servoPosition1" placeholder="Giá trị từ 0 --> 180"/>
+							</div>
+							<div>
+								<button class="button" ng-click="updateServo1(servoPosition1)">
+									OK
+								</button>
+							</div>
+						</div>
+						
+						<div class="list-group-item list-group-item-home">
+							<div>
+								<i class="fa fa-tachometer feature-icon  text-primary"></i>
+							</div>
+							<div>
+								<h3 class="home-heading">Cập nhập giá trị servo (sào phơi)</h3>
+								<input type="text" class="input text" ng-model="servoPosition2" placeholder="Giá trị từ 0 --> 180"/>
+							</div>
+							<div>
+								<button class="button" ng-click="updateServo2(servoPosition2)">
+									OK
+								</button>
+							</div>
+						</div>
+						
+						<!-- Cục thay đổi trạng thái LED -->
+						<div class="list-group-item list-group-item-home">
+							
+							<div>
+								<h3 class="home-heading">TRẠNG THÁI ĐÈN LED
+								<div ng-repeat="led_value in leds_status  track by $index">
+									Đèn LED thứ {{$index}} đang {{led_value ? "Bật" : "Tắt"}}. <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-change="changeLED()" ng-model="leds_status[$index]" />
+								</h3>
+								</div>
+							</div>
+						</div>
+					
+					
+					</div>
+			
+					<!--TAB 3 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				  <div ui-if="activeTab == 3">
+					<div class="list-group-item list-group-item-home">
+					<iframe width="854" height="480" src="https://www.youtube.com/embed/k4fyUEZskcw">
+					</iframe>
+					
+					</div>
 				</div>
-				<div>
-					<h3 class="home-heading">TRẠNG THÁI ĐÈN LED</h3>
-					<div ng-repeat="led_value in leds_status  track by $index">
-						Đèn LED thứ {{$index}} đang {{led_value ? "Bật" : "Tắt"}}. <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-change="changeLED()" ng-model="leds_status[$index]" />
+				
+				<!--TAB 4 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				<div ui-if="activeTab == 4">
+					<div class="list-group-item list-group-item-home">
+ <div class="scrollable-content section">
+   
+  <form role="form" ng-submit='login()'>
+    <fieldset>
+      <legend>Login</legend>
+        <div class="form-group has-success has-feedback">
+          <label>Email</label>
+          <input type="email"
+                 ng-model="email"
+                 class="form-control"
+                 placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" 
+                 class="form-control"
+                 placeholder="Password">
+        </div>
+
+        <div class="form-group">
+          <label>Remember Me</label>
+          <ui-switch 
+            ng-model="rememberMe"></ui-switch>
+        </div>
+    </fieldset>
+    <hr>
+
+    <button class="btn btn-primary btn-block">
+      Login
+    </button>
+
+    <div ui-content-for="navbarAction">
+      <a class="btn" ng-click="login()">Login</a>
+    </div>
+
+  </form>
+ </div>
+</div>
 					</div>
 				</div>
 			</div>
 			
-			<!-- Cục cập nhập giá trị nút nhấn! -->
-			<div class="list-group-item list-group-item-home">
-				<div>
-					<i class="fa fa-tachometer feature-icon  text-primary"></i>
-				</div>
-				<div>
-					<h3 class="home-heading">TRẠNG THÁI mấy cái NÚT NHẤN</h3>
-					<div ng-repeat="button_value in buttons  track by $index">
-						Nút nhấn {{$index}} đang {{button_value ? "THẢ" : "GIỮ"}}
-					</div>
-				</div>
-			</div>
 			
 			
 		</div>

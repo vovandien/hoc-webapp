@@ -21,10 +21,17 @@ angular.module('myApp', [
     //cài đặt một số tham số test chơi
 	//dùng để đặt các giá trị mặc định
     $scope.CamBienMua = "Không biết nữa ahihi, chưa thấy có thằng nào cập nhập hết";
-    $scope.leds_status = [1, 1]
+	$scope.CamBienChuyenDong = "Chưa cập nhật chuyển động"
+	$scope.CamBienNhietDo = "Chưa cập nhật nhiệt độ và độ ẩm"
+	$scope.CamBienKhongKhi = "Chưa cập nhật giá trị không khí"
+	$scope.CamBienHongNgoai = "Chưa cập nhật trạng thái cửa hồng ngoại"
+	$scope.CamBienLaser = "Chưa cập nhật trạng thái Laser"
+    $scope.leds_status = [1, 1, 1, 1, 1]
+	$scope.switchs_status = [1]
 	$scope.lcd = ["", ""]
-	$scope.servoPosition = 0
-	$scope.buttons = [] //chả có gì cả, arduino gửi nhiêu thì nhận nhiêu!
+	$scope.servoPosition1 
+	$scope.servoPosition2
+	$scope.buttons = [1] //chả có gì cả, arduino gửi nhiêu thì nhận nhiêu!
 	
 	////Khu 2 -- Cài đặt các sự kiện khi tương tác với người dùng
 	//các sự kiện ng-click, nhấn nút
@@ -32,8 +39,9 @@ angular.module('myApp', [
 		mySocket.emit("RAIN")
 	}
 	
-	
-	//Cách gửi tham số 1: dùng biến toàn cục! $scope.<tên biến> là biến toàn cục
+	$scope.$watch('enabled', function (newVal) {
+	 console.log('switch enabled : ' + newVal);
+	})
 	$scope.changeLED = function() {
 		console.log("send LED ", $scope.leds_status)
 		
@@ -41,6 +49,13 @@ angular.module('myApp', [
 			"led": $scope.leds_status
 		}
 		mySocket.emit("LED", json)
+	}
+	$scope.clicks = function(){
+		console.log("CLICK")
+	}
+	$scope.changeSwitch1 = function() {
+		console.log("send SWITCH1")
+		mySocket.emit("SWITCH", json)
 	}
 	
 	//cập nhập lcd như một ông trùm 
@@ -55,22 +70,44 @@ angular.module('myApp', [
 	}
 	
 	//Cách gửi tham số 2: dùng biến cục bộ: servoPosition. Biến này đươc truyền từ file home.html, dữ liệu đươc truyền vào đó chính là biến toàn cục $scope.servoPosition. Cách 2 này sẽ giúp bạn tái sử dụng hàm này vào mục đích khác, thay vì chỉ sử dụng cho việc bắt sự kiện như cách 1, xem ở Khu 4 để biết thêm ứng dụng!
-	$scope.updateServo = function(servoPosition) {
+	$scope.updateServo1 = function(servoPosition1) {
 		
 		var json = {
-			"degree": servoPosition,
-			"message": "Goc ne: " + servoPosition
+			"degree": servoPosition1,
+			"message": "Goc ne: " + servoPosition1
 		}
 		
-		console.log("SEND SERVO", json) //debug chơi à
-		mySocket.emit("SERVO", json)
+		console.log("SEND SERVO1", json) //debug chơi à
+		mySocket.emit("SERVO1", json)
 	}
+	
+	$scope.updateServo2 = function(servoPosition2) {
+		
+		var json = {
+			"degree": servoPosition2,
+			"message": "Goc ne: " + servoPosition2
+		}
+		
+		console.log("SEND SERVO2", json) //debug chơi à
+		mySocket.emit("SERVO2", json)
+	}
+	
 	
 	////Khu 3 -- Nhận dữ liệu từ Arduno gửi lên (thông qua ESP8266 rồi socket server truyền tải!)
 	//các sự kiện từ Arduino gửi lên (thông qua esp8266, thông qua server)
 	mySocket.on('RAIN', function(json) {
 		$scope.CamBienMua = (json.digital == 1) ? "Không mưa" : "Có mưa rồi yeah ahihi"
 	})
+	mySocket.on('HONGNGOAI', function(json) {
+		$scope.CamBienMua = (json.digital == 1) ? "Có vật cản hồng ngoại" : "Không có vật cản"
+	})
+	mySocket.on('LASER', function(json) {
+		$scope.CamBienMua = (json.digital == 1) ? "Có vật cản Laser" : "Không có vật cản"
+	})
+	mySocket.on('CHUYENDONG', function(json) {
+		$scope.CamBienMua = (json.digital == 1) ? "Có chuyển động" : "Không có chuyển động"
+	})
+	
 	//Khi nhận được lệnh LED_STATUS
 	mySocket.on('LED_STATUS', function(json) {
 		//Nhận được thì in ra thôi hihi.
