@@ -5,14 +5,12 @@
 			<div class="list-group-item list-group-item-home">
 				<h1>ĐỒ ÁN ĐIỀU KHIỂN THIẾT BỊ QUA MẠNG KHÔNG DÂY - WebApp<small>1.0</small>
 				</h1>
+				<img src="http://imageshack.com/a/img924/1082/2OCbHF.png" ></img>
 			</div>
 			
 			
-			
-			
-			
 			<div class="list-group-item list-group-item-home">
-				<div ui-state="activeTab" default="4">
+				<div ui-state="activeTab" default="1">
 				  <ul class="nav nav-tabs">
 					<li ui-class="{'active': activeTab == 1} ">
 					  <a ui-set="{'activeTab': 1}">Các cảm biến</a>
@@ -21,10 +19,13 @@
 					  <a ui-set="{'activeTab': 2}">Điều khiển thiết bị</a>
 					</li>
 					<li ui-class="{'active': activeTab == 3}">
-					  <a ui-set="{'activeTab': 3}">Video</a>
+					  <a ui-set="{'activeTab': 3}">LCD và Servo</a>
 					</li>
 					<li ui-class="{'active': activeTab == 4}">
-					  <a ui-set="{'activeTab': 4}">DEMO</a>
+					  <a ui-set="{'activeTab': 4}">VIDEO</a>
+					</li>
+					<li ui-class="{'active': activeTab == 5}">
+					  <a ui-set="{'activeTab': 5}">DEMO</a>
 					</li>
 				  </ul>
 				
@@ -36,19 +37,9 @@
 					</div>
 					<div>
 						<h3 class="home-heading">Cảm biến mưa</h3>
+						<i class="fa fa-tint fa-3x"></i> <br>
 						Kết quả: {{CamBienMua}}
 					</div>
-					
-					<!-- Cục cập nhập giá trị cảm biến -->
-					
-						
-						<div>
-							<h3 class="home-heading">Cập nhập cảm biến</h3>
-							<button class="button" ng-click="updateSensor()">
-								Nhấn vô dể cập nhập giá trị cảm biến
-							</button>
-						</div>
-					
 					
 					<!--cập nhật giá trị cảm biến nhiệt độ và độ ẩm-->
 					
@@ -61,20 +52,16 @@
 					
 					<div>
 						<h3 class="home-heading">Cảm biến không khí</h3>
+						<i class="fa fa-fire fa-3x"></i> <br>
 						Kết quả: {{CamBienKhongKhi}}
 					</div>
 					
-					<!--cập nhật giá trị cảm biến không khí-->
-					
-					<div>
-						<h3 class="home-heading">Cảm biến không khí</h3>
-						Kết quả: {{CamBienKhongKhi}}
-					</div>
 					
 					<!--cập nhật giá trị cảm biến chuyển động-->
 					
 					<div>
 						<h3 class="home-heading">Cảm biến chuyển động</h3>
+						<i class="fa fa-male fa-3x"></i> <br>
 						Kết quả: {{CamBienChuyenDong}}
 					</div>
 					
@@ -82,6 +69,7 @@
 					
 					<div>
 						<h3 class="home-heading">Cảm biến hồng ngoại</h3>
+						<i class="fa fa-unlock-alt fa-3x"></i> <br>
 						Kết quả: {{CamBienHongNgoai}}
 					</div>
 					
@@ -89,6 +77,7 @@
 					
 					<div>
 						<h3 class="home-heading">Cảm biến Laser</h3>
+						<i class="fa fa-bell fa-3x"></i> <br>
 						Kết quả: {{CamBienLaser}}
 					</div>
 					
@@ -103,33 +92,61 @@
 						</div>
 					</div>
 					
+					<!-- Cục cập nhập giá trị cảm biến -->
+					
+						
+						<div>
+							<h3 class="home-heading">Cập nhập cảm biến</h3>
+							<button class="button" ng-click="updateSensor()">
+								Nhấn vô dể cập nhập giá trị cảm biến
+							</button>
+						</div>
+					
+					
 					</div>
 				
 					
 					<!--TAB 2 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 				  <div ui-if="activeTab == 2">
 						<div class="list-group-item list-group-item-scroll text-left"> 
-						<div ng-repeat="switchs_value in switchs_status  track by $index">
-							<span ui-switch  ng-model="" ng-click="clicks()" ng-change="changeSwitch1()" /ui-switch></span>
-							Trạng thái đèn vườn đang {{switchs_value ? "Bật" : "Tắt"}}
-							<span ui-switch  ng-model=""  ng-change="change_Switch2()" /ui-switch></span>
-							Trạng thái của hồ
-							<span ui-switch  ng-model=""  ng-change="change_Switch3()" /ui-switch></span>
-							Trạng thái đèn phòng khách
-							<span ui-switch  ng-model=""  ng-change="change_Switch4()" /ui-switch></span>
-							Trạng thái đèn phòng bếp
-							<span ui-switch  ng-model=""  ng-change="change_Switch5()" /ui-switch></span>
-							Trạng thái đèn phòng ngủ
-							<span ui-switch  ng-model=""  ng-change="change_Switch6()" /ui-switch></span>
-							Trạng thái đèn nhà vệ sinh
-							
-							
+						<!-- <a  
+							 ui-turn-on="lightbulb"
+							 ui-class="{'active': lightbulb}" 
+							 class="btn btn-default" href>
+							  Turn On
+						  </a>
+						  <a  
+							 ui-turn-off="lightbulb"
+							 ui-class="{'active': !lightbulb}"
+							 class="btn btn-default" href>
+							  Turn Off
+						  </a>  -->
+						<div ng-repeat="switch_value in switchs_status track by $index">
+							<a ui-switch  ng-model="switchs_status[$index]"  ui-toggle="switchs_status[$index]" ui-class="{'active': lightbulb}" ng-true-value="1" ng-false-value="0" ng-change="changeSWITCH()"/ui-switch></a>
+							Trạng thái đèn {{thietbi[$index]}} đang {{switch_value ? "Bật" : "Tắt"}}
+							<i class="fa fa-lightbulb-o fa-2x"></i>
+							<!-- <p ui-shared-state id="lightbulb"
+							ui-class="{'text-primary': lightbulb}">
+						  <i class="fa fa-lightbulb-o fa-2x"></i>
+						</p>
+						  <a  
+							 ui-toggle="lightbulb"
+							 ui-class="{'active': lightbulb}" >
+							  Toggle
+						  </a> -->
 						</div>
-						
-						
-						
 						</div>
-						<!-- Cục thay đổi chữ trên LCD-->
+								
+						
+						
+						
+					</div>
+			
+			
+					<!--TAB 3 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				  <div ui-if="activeTab == 3">
+					<div class="list-group-item list-group-item-home">
+					<!-- Cục thay đổi chữ trên LCD-->
 						<div class="list-group-item list-group-item-home">
 							
 							<div>
@@ -146,10 +163,9 @@
 						
 						<!-- Cục cập nhập giá trị servo -->
 						<div class="list-group-item list-group-item-home">
+							
 							<div>
-								<i class="fa fa-tachometer feature-icon  text-primary"></i>
-							</div>
-							<div>
+								<i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i>
 								<h3 class="home-heading">Cập nhập giá trị servo (cửa)</h3>
 								<input type="text" class="input text" ng-model="servoPosition1" placeholder="Giá trị từ 0 --> 180"/>
 							</div>
@@ -161,10 +177,10 @@
 						</div>
 						
 						<div class="list-group-item list-group-item-home">
+							
 							<div>
-								<i class="fa fa-tachometer feature-icon  text-primary"></i>
-							</div>
 							<div>
+								<i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i>
 								<h3 class="home-heading">Cập nhập giá trị servo (sào phơi)</h3>
 								<input type="text" class="input text" ng-model="servoPosition2" placeholder="Giá trị từ 0 --> 180"/>
 							</div>
@@ -174,24 +190,11 @@
 								</button>
 							</div>
 						</div>
-						
-						<!-- Cục thay đổi trạng thái LED -->
-						<div class="list-group-item list-group-item-home">
-							
-							<div>
-								<h3 class="home-heading">TRẠNG THÁI ĐÈN LED
-								<div ng-repeat="led_value in leds_status  track by $index">
-									Đèn LED thứ {{$index}} đang {{led_value ? "Bật" : "Tắt"}}. <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-change="changeLED()" ng-model="leds_status[$index]" />
-								</h3>
-								</div>
-							</div>
 						</div>
-					
-					
-					</div>
-			
-					<!--TAB 3 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-				  <div ui-if="activeTab == 3">
+						</div>
+				</div>
+					<!--TAB 4 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				  <div ui-if="activeTab == 4">
 					<div class="list-group-item list-group-item-home">
 					<iframe width="854" height="480" src="https://www.youtube.com/embed/k4fyUEZskcw">
 					</iframe>
@@ -199,50 +202,95 @@
 					</div>
 				</div>
 				
-				<!--TAB 4 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-				<div ui-if="activeTab == 4">
+				<!--TAB 5 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				<div ui-if="activeTab == 5">
 					<div class="list-group-item list-group-item-home">
- <div class="scrollable-content section">
-   
-  <form role="form" ng-submit='login()'>
-    <fieldset>
-      <legend>Login</legend>
-        <div class="form-group has-success has-feedback">
-          <label>Email</label>
-          <input type="email"
-                 ng-model="email"
-                 class="form-control"
-                 placeholder="Enter email">
-        </div>
+					 <div class="scrollable-content section">
+					   
+					  <form role="form" ng-submit='login()'>
+						<fieldset>
+						  <legend>Login</legend>
+							<div class="form-group has-success has-feedback">
+							  <label>Email</label>
+							  <input type="email"
+									 ng-model="email"
+									 class="form-control"
+									 placeholder="Enter email">
+							</div>
 
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" 
-                 class="form-control"
-                 placeholder="Password">
-        </div>
+							<div class="form-group">
+							  <label>Password</label>
+							  <input type="password" 
+									 class="form-control"
+									 placeholder="Password">
+							</div>
 
-        <div class="form-group">
-          <label>Remember Me</label>
-          <ui-switch 
-            ng-model="rememberMe"></ui-switch>
-        </div>
-    </fieldset>
-    <hr>
+							<div class="form-group">
+							 <a ui-switch 
+								ng-model="re" /ui-switch
+							ui-toggle="re"
+							 ui-class="{'active': re}" ></a>{{re ? "ok"  : "nnooo"}}
+							
+						  
+						  </div>
+						</p>
+						</fieldset>
+						<hr>
 
-    <button class="btn btn-primary btn-block">
-      Login
-    </button>
+						<button class="btn btn-primary btn-block">
+						  Login
+						</button>
 
-    <div ui-content-for="navbarAction">
-      <a class="btn" ng-click="login()">Login</a>
-    </div>
+						<div ui-content-for="navbarAction">
+						  <a class="btn" ng-click="login()">Login</a>
+						</div>
 
-  </form>
- </div>
-</div>
+					  </form>
+					 </div>
 					</div>
-				</div>
+					<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+					<span class="sr-only">Loading...</span>
+					
+					  <div class="container-fluid">
+
+						<p ui-shared-state id="lightbulb"
+							ui-class="{'text-primary': lightbulb}" 
+							   class="text-default">
+
+						  <i class="fa fa-lightbulb-o fa-5x"></i>
+						</p>
+
+						<div class="btn-group justified nav-tabs">
+						  <a  
+							 ui-toggle="lightbulb"
+							 ui-class="{'active': lightbulb}" 
+							 class="btn btn-default" href>
+							  Toggle
+						  </a>
+						  <a  
+							 ui-turn-on="lightbulb"
+							 ui-class="{'active': lightbulb}" 
+							 class="btn btn-default" href>
+							  Turn On
+						  </a>
+						  <a  
+							 ui-turn-off="lightbulb"
+							 ui-class="{'active': !lightbulb}"
+							 ng-click="change_Switch1()"
+							 class="btn btn-default" href>
+							  Turn Off
+						  </a>       
+						</div>
+						
+						<div>
+						<i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i>
+						<span class="sr-only">Saving. Hang tight!</span>
+						</div>
+						
+	
+	
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+					
 			</div>
 			
 			

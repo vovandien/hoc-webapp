@@ -26,8 +26,8 @@ angular.module('myApp', [
 	$scope.CamBienKhongKhi = "Chưa cập nhật giá trị không khí"
 	$scope.CamBienHongNgoai = "Chưa cập nhật trạng thái cửa hồng ngoại"
 	$scope.CamBienLaser = "Chưa cập nhật trạng thái Laser"
-    $scope.leds_status = [1, 1, 1, 1, 1]
-	$scope.switchs_status = [1]
+	$scope.thietbi = ["vườn","hồ","bếp","phòng khách","phòng ngủ","nhà vệ sinh"]
+	$scope.switchs_status = [0, 0, 0, 0, 0, 0]
 	$scope.lcd = ["", ""]
 	$scope.servoPosition1 
 	$scope.servoPosition2
@@ -50,12 +50,12 @@ angular.module('myApp', [
 		}
 		mySocket.emit("LED", json)
 	}
-	$scope.clicks = function(){
-		console.log("CLICK")
-	}
-	$scope.changeSwitch1 = function() {
-		console.log("send SWITCH1")
-		mySocket.emit("SWITCH", json)
+	$scope.changeSWITCH = function() {
+		console.log("send SWITCH ", $scope.switchs_status)
+		var json = {
+			"switch": $scope.switchs_status
+		}
+		mySocket.emit("switch", json)
 	}
 	
 	//cập nhập lcd như một ông trùm 
