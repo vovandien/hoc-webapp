@@ -6,12 +6,14 @@
 				<h1>ĐỒ ÁN ĐIỀU KHIỂN THIẾT BỊ QUA MẠNG KHÔNG DÂY - WebApp<small>1.0</small>
 				</h1>
 				<img src="http://imageshack.com/a/img924/1082/2OCbHF.png" ></img>
+				<h4><div id="clock"></div></h4>
 			</div>
 			
 			
 			<div class="list-group-item list-group-item-home">
 				<div ui-state="activeTab" default="1">
-				  <ul class="nav nav-tabs">
+				<div >
+				  <ul class="nav nav-tabs ">
 					<li ui-class="{'active': activeTab == 1} ">
 					  <a ui-set="{'activeTab': 1}">Các cảm biến</a>
 					</li>
@@ -28,7 +30,7 @@
 					  <a ui-set="{'activeTab': 5}">DEMO</a>
 					</li>
 				  </ul>
-				
+					</div>
 					<!--TAB 1 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 				  <div ui-if="activeTab == 1">
 					<div class="list-group-item list-group-item-home">
@@ -36,23 +38,24 @@
 						<i class="fa fa-gamepad feature-icon text-primary"></i>
 					</div>
 					<div>
-						<h3 class="home-heading">Cảm biến mưa</h3>
-						<i class="fa fa-tint fa-3x"></i> <br>
+						<h3 class="home-heading d-block bg-primary">Cảm biến mưa</h3>
+						<i class="fa fa-tint text-primary fa-3x"></i> <br>
 						Kết quả: {{CamBienMua}}
 					</div>
 					
 					<!--cập nhật giá trị cảm biến nhiệt độ và độ ẩm-->
 					
 					<div>
-						<h3 class="home-heading">Cảm biến nhiệt độ và độ ẩm</h3>
+						<h3 class="home-heading d-block bg-primary">Cảm biến nhiệt độ và độ ẩm</h3>
+						<i class="fa fa-bar-chart text-primary fa-3x"></i> <br>
 						Kết quả: {{CamBienNhietDo}}
 					</div>
 					
 					<!--cập nhật giá trị cảm biến không khí-->
 					
 					<div>
-						<h3 class="home-heading">Cảm biến không khí</h3>
-						<i class="fa fa-fire fa-3x"></i> <br>
+						<h3 class="home-heading d-block bg-primary">Cảm biến không khí</h3>
+						<i class="fa fa-fire text-primary fa-3x"></i> <br>
 						Kết quả: {{CamBienKhongKhi}}
 					</div>
 					
@@ -60,24 +63,25 @@
 					<!--cập nhật giá trị cảm biến chuyển động-->
 					
 					<div>
-						<h3 class="home-heading">Cảm biến chuyển động</h3>
-						<i class="fa fa-male fa-3x"></i> <br>
+						<h3 class="home-heading d-block bg-primary">Cảm biến chuyển động</h3>
+						<i class="fa fa-male text-primary fa-3x"></i> <br>
 						Kết quả: {{CamBienChuyenDong}}
 					</div>
 					
 					<!--cập nhật giá trị cảm biến hồng ngoại-->
 					
 					<div>
-						<h3 class="home-heading">Cảm biến hồng ngoại</h3>
-						<i class="fa fa-unlock-alt fa-3x"></i> <br>
+						<h3 class="home-heading d-block bg-primary">Cảm biến hồng ngoại</h3>
+						<i class="fa fa-unlock-alt text-primary fa-3x"></i> <br>
 						Kết quả: {{CamBienHongNgoai}}
 					</div>
 					
 					<!--cập nhật giá trị cảm biến chuyển động-->
 					
 					<div>
-						<h3 class="home-heading">Cảm biến Laser</h3>
-						<i class="fa fa-bell fa-3x"></i> <br>
+						<h3 class="home-heading d-block bg-primary">Cảm biến Laser</h3>
+						<i class="fa fa-shield text-danger fa-3x"></i> <br>
+						<i class="fa fa-bell text-danger fa-3x"></i> <br>
 						Kết quả: {{CamBienLaser}}
 					</div>
 					
@@ -85,7 +89,7 @@
 					
 						
 						<div>
-							<h3 class="home-heading">TRẠNG THÁI mấy cái NÚT NHẤN</h3>
+							<h3 class="home-heading ">TRẠNG THÁI mấy cái NÚT NHẤN</h3>
 							<div ng-repeat="button_value in buttons  track by $index">
 								Nút nhấn {{$index}} đang {{button_value ? "THẢ" : "GIỮ"}}
 							</div>
@@ -93,16 +97,9 @@
 					</div>
 					
 					<!-- Cục cập nhập giá trị cảm biến -->
-					
-						
-						<div>
-							<h3 class="home-heading">Cập nhập cảm biến</h3>
-							<button class="button" ng-click="updateSensor()">
-								Nhấn vô dể cập nhập giá trị cảm biến
-							</button>
-						</div>
-					
-					
+						<button class="btn btn-primary" ng-click="updateSensor()">
+						  Nhấn vô dể cập nhập giá trị cảm biến
+						</button>
 					</div>
 				
 					
@@ -123,7 +120,7 @@
 						  </a>  -->
 						<div ng-repeat="switch_value in switchs_status track by $index">
 							<a ui-switch  ng-model="switchs_status[$index]"  ui-toggle="switchs_status[$index]" ui-class="{'active': lightbulb}" ng-true-value="1" ng-false-value="0" ng-change="changeSWITCH()"/ui-switch></a>
-							Trạng thái đèn {{thietbi[$index]}} đang {{switch_value ? "Bật" : "Tắt"}}
+							Trạng thái đèn {{thietbi[$index]}} đang {{switch_value ? "Bật " : "Tắt"}}
 							<i class="fa fa-lightbulb-o fa-2x"></i>
 							<!-- <p ui-shared-state id="lightbulb"
 							ui-class="{'text-primary': lightbulb}">
@@ -136,6 +133,7 @@
 						  </a> -->
 						</div>
 						</div>
+						</div>
 								
 						
 						
@@ -145,18 +143,19 @@
 			
 					<!--TAB 3 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 				  <div ui-if="activeTab == 3">
-					<div class="list-group-item list-group-item-home">
+					<div class="list-group-item list-group-item-home ">
 					<!-- Cục thay đổi chữ trên LCD-->
 						<div class="list-group-item list-group-item-home">
 							
 							<div>
-								<h3 class="home-heading">Cập nhập giá trị LCD </h3>
-								<input type="text" class="input text" ng-model="lcd[0]" placeholder="Nhập tối đa 16 ký tự"/>
-								<input type="text" class="input text" ng-model="lcd[1]" placeholder="Nhập tối đa 16 ký tự"/>
+								<h3 class="home-heading d-block bg-primary">Cập nhập giá trị LCD </h3>
+								<i class="fa fa-tv fa-3x"></i> <br>
+								<input type="text" class="input text" ng-model="lcd[0]" placeholder="Nhập tối đa 16 ký tự" maxlength="16"/>
+								<input type="text" class="input text" ng-model="lcd[1]" placeholder="Nhập tối đa 16 ký tự" maxlength="16"/>
 							</div>
 							<div>
-								<button class="button" ng-click="updateLCD()">
-									OK
+								<button class="btn btn-primary" ng-click="updateLCD()">
+								  OK
 								</button>
 							</div>
 						</div>
@@ -165,13 +164,13 @@
 						<div class="list-group-item list-group-item-home">
 							
 							<div>
-								<i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i>
-								<h3 class="home-heading">Cập nhập giá trị servo (cửa)</h3>
-								<input type="text" class="input text" ng-model="servoPosition1" placeholder="Giá trị từ 0 --> 180"/>
+								<h3 class="home-heading d-block bg-primary">Cập nhập giá trị servo (cửa)</h3>
+								<i class="fa fa-cog fa-spin fa-3x text-primary" aria-hidden="true"></i><br>
+								<input type="number" class="input text" ng-model="servoPosition1" placeholder="Giá trị từ 0 --> 180" maxlength="3"/>
 							</div>
 							<div>
-								<button class="button" ng-click="updateServo1(servoPosition1)">
-									OK
+								<button class="btn btn-primary" ng-click="updateServo1(servoPosition1)">
+								  OK
 								</button>
 							</div>
 						</div>
@@ -180,13 +179,13 @@
 							
 							<div>
 							<div>
-								<i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i>
-								<h3 class="home-heading">Cập nhập giá trị servo (sào phơi)</h3>
-								<input type="text" class="input text" ng-model="servoPosition2" placeholder="Giá trị từ 0 --> 180"/>
+								<h3 class="home-heading d-block bg-primary">Cập nhập giá trị servo (sào phơi)</h3>
+								<i class="fa fa-cog fa-spin fa-3x text-primary" aria-hidden="true"></i><br>
+								<input type="number" class="input text" ng-model="servoPosition2" placeholder="Giá trị từ 0 --> 180" maxlength="3"/>
 							</div>
 							<div>
-								<button class="button" ng-click="updateServo2(servoPosition2)">
-									OK
+								<button class="btn btn-primary" ng-click="updateServo2(servoPosition2)">
+								  OK
 								</button>
 							</div>
 						</div>

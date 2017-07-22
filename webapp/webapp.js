@@ -109,9 +109,9 @@ angular.module('myApp', [
 	})
 	
 	//Khi nhận được lệnh LED_STATUS
-	mySocket.on('LED_STATUS', function(json) {
+	mySocket.on('SWITCH_STATUS', function(json) {
 		//Nhận được thì in ra thôi hihi.
-		console.log("recv LED", json)
+		console.log("recv SWITCH", json)
 		$scope.leds_status = json.data
 	})
 	//khi nhận được lệnh Button
