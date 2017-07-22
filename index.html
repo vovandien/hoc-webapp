@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My App</title>
+		<!-- Only required for desktop -->
+		<link rel="stylesheet" href="/dist/css/mobile-angular-ui-hover.min.css" />
+		<!-- Always required -->
+		<link rel="stylesheet" href="/dist/css/mobile-angular-ui-base.min.css" />
+		<!-- Only required for desktop -->
+		<link rel="stylesheet" href="/dist/css/mobile-angular-ui-desktop.min.css" />
+		<script src="/angular.min.js"></script>
+		<script src="/angular-route.min.js"></script>
+		<script src="/dist/js/mobile-angular-ui.min.js"></script>
+		<script src="/dist/socket.io.min.js"></script>
+		<script src="/socket.min.js"></script>
+		<script src="/webapp.js"></script>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<script type="text/javascript">
+			function time() {
+			   var today = new Date();
+			   var weekday=new Array(7);
+			   weekday[0]="Sunday";
+			   weekday[1]="Monday";
+			   weekday[2]="Tuesday";
+			   weekday[3]="Wednesday";
+			   weekday[4]="Thursday";
+			   weekday[5]="Friday";
+			   weekday[6]="Saturday";
+			   var day = weekday[today.getDay()]; 
+			   var dd = today.getDate();
+			   var mm = today.getMonth()+1; //January is 0!
+			   var yyyy = today.getFullYear();
+			   var h=today.getHours();
+			   var m=today.getMinutes();
+			   var s=today.getSeconds();
+			   m=checkTime(m);
+			   s=checkTime(s);
+			   nowTime = h+":"+m+":"+s;
+			   if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = day+', '+ dd+'/'+mm+'/'+yyyy;
+			 
+			   tmp='<span class="date">'+today+' | '+nowTime+'</span>';
+			 
+			   document.getElementById("clock").innerHTML=tmp;
+			 
+			   clocktime=setTimeout("time()","1000","JavaScript");
+			   function checkTime(i)
+			   {
+				  if(i<10){
+				 i="0" + i;
+				  }
+				  return i;
+			   }
+			}
+			</script>
+	</head>
+	<body ng-app="myApp" onload="time()">
+		<!-- Sidebars -->
+		<div class="sidebar sidebar-left">
+			<!-- ... -->
+		</div>
+		<div class="sidebar sidebar-right">
+			<!-- ... -->
+		</div>
+		<div class="app">
+			<!-- App body -->
+			<div class='app-body'>
+				<div class='app-content'>
+					<ng-view>
+					</ng-view>
+				</div>
+			</div>
+		</div>
+		<!-- ~ .app -->
+		<!-- Modals and Overlays -->
+		<div ui-yield-to="modals"></div>
+	</body>
+</html>
