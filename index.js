@@ -1,4 +1,4 @@
-const PORT = 3484;									//Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
+const PORT = 80;									//Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
 
 var http = require('http');
 var express = require('express');							//#include thư viện express - dùng để tạo server http nhanh hơn thư viện http cũ
