@@ -20,23 +20,22 @@ angular.module('myApp', [
 	////Khu 1 -- Khu cài đặt tham số 
     //cài đặt một số tham số test chơi
 	//dùng để đặt các giá trị mặc định
-    $scope.CamBienMua = "Không biết nữa ahihi, chưa thấy có thằng nào cập nhập hết";
+    $scope.CamBienMua = "Chưa cập nhập hết";
 	$scope.CamBienChuyenDong = "Chưa cập nhật chuyển động"
 	$scope.CamBienNhietDo = "Chưa cập nhật nhiệt độ và độ ẩm"
 	$scope.CamBienKhongKhi = "Chưa cập nhật giá trị không khí"
 	$scope.CamBienHongNgoai = "Chưa cập nhật trạng thái cửa hồng ngoại"
 	$scope.CamBienLaser = "Chưa cập nhật trạng thái Laser"
 	$scope.thietbi = ["vườn","hồ","bếp","phòng khách","phòng ngủ","nhà vệ sinh"]
-	$scope.switchs_status = [0, 0, 0, 0, 0, 0]
+	$scope.switchs_status = ['', '', '', '', '', '']
 	$scope.lcd = ["", ""]
 	$scope.servoPosition1 
 	$scope.servoPosition2
-	$scope.buttons = [1] //chả có gì cả, arduino gửi nhiêu thì nhận nhiêu!
 	
 	////Khu 2 -- Cài đặt các sự kiện khi tương tác với người dùng
 	//các sự kiện ng-click, nhấn nút
 	$scope.updateSensor  = function() {
-		mySocket.emit("RAIN")
+		mySocket.emit("SENSOR")
 	}
 	
 	$scope.$watch('enabled', function (newVal) {
@@ -55,7 +54,7 @@ angular.module('myApp', [
 		var json = {
 			"switch": $scope.switchs_status
 		}
-		mySocket.emit("switch", json)
+		mySocket.emit("SWITCH", json)
 	}
 	
 	//cập nhập lcd như một ông trùm 
@@ -96,18 +95,23 @@ angular.module('myApp', [
 	////Khu 3 -- Nhận dữ liệu từ Arduno gửi lên (thông qua ESP8266 rồi socket server truyền tải!)
 	//các sự kiện từ Arduino gửi lên (thông qua esp8266, thông qua server)
 	mySocket.on('RAIN', function(json) {
-		$scope.CamBienMua = (json.digital == 1) ? "Không mưa" : "Có mưa rồi yeah ahihi"
+		$scope.CamBienMua = (json.rain == 1) ? "Không có dấu hiệu mưa" : "Có mưa rồi"
 	})
-	mySocket.on('HONGNGOAI', function(json) {
-		$scope.CamBienMua = (json.digital == 1) ? "Có vật cản hồng ngoại" : "Không có vật cản"
+	mySocket.on('HN', function(json) {
+		$scope.CamBienHongNgoai = (json.hongngoai == 1) ? "Có vật cản hồng ngoại" : "Không có vật cản"
 	})
 	mySocket.on('LASER', function(json) {
-		$scope.CamBienMua = (json.digital == 1) ? "Có vật cản Laser" : "Không có vật cản"
+		$scope.CamBienLaser = (json.laser == 1) ? "Có vật cản Laser" : "Không có vật cản"
 	})
-	mySocket.on('CHUYENDONG', function(json) {
-		$scope.CamBienMua = (json.digital == 1) ? "Có chuyển động" : "Không có chuyển động"
+	mySocket.on('CHDONG', function(json) {
+		$scope.CamBienChuyenDong = (json.chuyendong == 1) ? "Có chuyển động" : "Không có chuyển động"
 	})
-	
+	mySocket.on('DHT11', function(json) {
+		$scope.CamBienNhietDo = "Nhiệt độ:" + json.temperature + " độ C______" + "Độ ẩm:" + json.humidity + " %"
+	})
+	mySocket.on('AIR', function(json) {
+		$scope.CamBienKhongKhi = "Mật độ" + json.message + "ppm"
+	})
 	//Khi nhận được lệnh LED_STATUS
 	mySocket.on('SWITCH_STATUS', function(json) {
 		//Nhận được thì in ra thôi hihi.
@@ -125,9 +129,9 @@ angular.module('myApp', [
 	//// Khu 4 -- Những dòng code sẽ được thực thi khi kết nối với Arduino (thông qua socket server)
 	mySocket.on('connect', function() {
 		console.log("connected")
-		mySocket.emit("RAIN") //Cập nhập trạng thái mưa
+		mySocket.emit("SENSOR") //Cập nhập trạng thái mưa
 		
-		$scope.updateServo(0) //Servo quay về góc 0 độ!. Dùng cách 2 
+		//$scope.updateServo(0) //Servo quay về góc 0 độ!. Dùng cách 2 
 	})
 		
 });

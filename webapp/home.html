@@ -87,13 +87,13 @@
 					
 					<!-- Cục cập nhập giá trị nút nhấn! ng -->
 					
-						
+						<!-- 
 						<div>
 							<h3 class="home-heading ">TRẠNG THÁI mấy cái NÚT NHẤN</h3>
 							<div ng-repeat="button_value in buttons  track by $index">
 								Nút nhấn {{$index}} đang {{button_value ? "THẢ" : "GIỮ"}}
 							</div>
-						</div>
+						</div> -->
 					</div>
 					
 					<!-- Cục cập nhập giá trị cảm biến -->
@@ -118,8 +118,8 @@
 							 class="btn btn-default" href>
 							  Turn Off
 						  </a>  -->
-						<div ng-repeat="switch_value in switchs_status track by $index">
-							<a ui-switch  ng-model="switchs_status[$index]"  ui-toggle="switchs_status[$index]" ui-class="{'active': lightbulb}" ng-true-value="1" ng-false-value="0" ng-change="changeSWITCH()"/ui-switch></a>
+						<div ng-repeat="switch_value in switchs_status track by $index" ng-true-value="1" ng-false-value="0">
+							<a ui-switch  ng-model="switchs_status[$index]"  ui-toggle="switchs_status[$index]" ui-class="{'active': lightbulb}"  ng-change="changeSWITCH()"/ui-switch></a>
 							Trạng thái đèn {{thietbi[$index]}} đang {{switch_value ? "Bật " : "Tắt"}}
 							<i class="fa fa-lightbulb-o fa-2x"></i>
 							<!-- <p ui-shared-state id="lightbulb"
@@ -228,7 +228,7 @@
 							 <a ui-switch 
 								ng-model="re" /ui-switch
 							ui-toggle="re"
-							 ui-class="{'active': re}" ></a>{{re ? "ok"  : "nnooo"}}
+							 ui-class="{'active': re}" ></a>
 							
 						  
 						  </div>
@@ -247,7 +247,7 @@
 					  </form>
 					 </div>
 					</div>
-					<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+					<!-- <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 					<span class="sr-only">Loading...</span>
 					
 					  <div class="container-fluid">
@@ -284,7 +284,7 @@
 						<div>
 						<i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i>
 						<span class="sr-only">Saving. Hang tight!</span>
-						</div>
+						</div> -->
 						
 	
 	
